@@ -53,7 +53,6 @@ class ImcCalculatorActivity : AppCompatActivity() {
         btnAddWeight = findViewById(R.id.btnAddWeight)
         btnSubtractWeight = findViewById(R.id.btnSubtractWeight)
         tvWeight = findViewById(R.id.tvWeight)
-        btnAddWeight = findViewById(R.id.btnAddAge)
         btnSubtractAge = findViewById(R.id.btnSubtractAge)
         btnAddAge = findViewById(R.id.btnAddAge)
         tvAge = findViewById(R.id.tvAge)
