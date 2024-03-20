@@ -250,6 +250,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
+        android:id="@+id/btnCalculate"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"

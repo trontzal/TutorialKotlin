@@ -1,6 +1,7 @@
 package com.example.tutorialkotlin.imccalculator
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -9,10 +10,12 @@ import com.example.tutorialkotlin.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.slider.RangeSlider
 import java.text.DecimalFormat
+import java.util.Locale
 
 class ImcCalculatorActivity : AppCompatActivity() {
     private var currentWeight: Int = 60
     private var currentAge: Int = 30
+    private var currentHeight: Int = 160
 
     private lateinit var viewMale: CardView
     private lateinit var viewFemale: CardView
@@ -24,6 +27,7 @@ class ImcCalculatorActivity : AppCompatActivity() {
     private lateinit var btnAddAge: FloatingActionButton
     private lateinit var btnSubtractAge: FloatingActionButton
     private lateinit var tvAge: TextView
+    private lateinit var btnCalculate: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,8 +40,8 @@ class ImcCalculatorActivity : AppCompatActivity() {
 
         rsHeight.addOnChangeListener { rangeSlider, value, b ->
             val df = DecimalFormat("#.##")
-            val result = df.format(value)
-            tvHeight.text = "$result cm"
+            currentHeight = df.format(value).toInt()
+            tvHeight.text = "$currentHeight cm"
         }
     }
 
@@ -56,6 +60,7 @@ class ImcCalculatorActivity : AppCompatActivity() {
         btnSubtractAge = findViewById(R.id.btnSubtractAge)
         btnAddAge = findViewById(R.id.btnAddAge)
         tvAge = findViewById(R.id.tvAge)
+        btnCalculate = findViewById(R.id.btnCalculate)
     }
 
     private fun initListeners() {
@@ -75,6 +80,16 @@ class ImcCalculatorActivity : AppCompatActivity() {
             currentAge -= 1
             setAge()
         }
+        btnCalculate.setOnClickListener {
+            calculateImc()
+        }
+    }
+
+    private fun calculateImc() {
+        val currentHeightCm = currentHeight.toDouble() / 100
+        val imc = currentWeight / (currentHeightCm * currentHeightCm)
+        val formattedImc = String.format(Locale.getDefault(), "%.2f", imc)
+        Log.i("imc", "el resultado es $formattedImc")
     }
 
     private fun cambiarColorSeleccionado() {
