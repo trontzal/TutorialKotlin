@@ -1,5 +1,6 @@
 package com.example.tutorialkotlin.imccalculator
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -81,15 +82,22 @@ class ImcCalculatorActivity : AppCompatActivity() {
             setAge()
         }
         btnCalculate.setOnClickListener {
-            calculateImc()
+            val result = calculateImc()
+            navigateToResult(result)
         }
     }
 
-    private fun calculateImc() {
+    private fun navigateToResult(result: String) {
+        val intent = Intent(this, ResultImcActivity::class.java)
+        intent.putExtra("IMC_RESULT", result)
+        startActivity(intent)
+    }
+
+    private fun calculateImc(): String {
         val currentHeightCm = currentHeight.toDouble() / 100
         val imc = currentWeight / (currentHeightCm * currentHeightCm)
         val formattedImc = String.format(Locale.getDefault(), "%.2f", imc)
-        Log.i("imc", "el resultado es $formattedImc")
+        return formattedImc;
     }
 
     private fun cambiarColorSeleccionado() {
