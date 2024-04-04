@@ -1,5 +1,6 @@
 package com.example.tutorialkotlin.imccalculator
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -39,10 +40,11 @@ class ResultImcActivity : AppCompatActivity() {
 
     private fun initListeners() {
         btnReCalculate.setOnClickListener{
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initUI(result: Double) {
         tvImc.text = result.toString()
         when (result) {
