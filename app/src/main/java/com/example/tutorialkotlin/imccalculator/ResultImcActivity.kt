@@ -1,9 +1,11 @@
 package com.example.tutorialkotlin.imccalculator
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.tutorialkotlin.R
@@ -13,6 +15,7 @@ class ResultImcActivity : AppCompatActivity() {
     private lateinit var tvResult: TextView
     private lateinit var tvImc: TextView
     private lateinit var tvDescription: TextView
+    private lateinit var btnReCalculate: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +34,13 @@ class ResultImcActivity : AppCompatActivity() {
 
         initComponents()
         initUI(result)
+        initListeners()
+    }
 
-        tvImc.text = "$result"
+    private fun initListeners() {
+        btnReCalculate.setOnClickListener{
+            onBackPressed()
+        }
     }
 
     private fun initUI(result: Double) {
@@ -41,18 +49,22 @@ class ResultImcActivity : AppCompatActivity() {
             in 0.00..18.50 -> {
                 tvResult.text = "Bajo"
                 tvDescription.text = "Tu imc indica que estar por debajo del peso recomendado"
+                tvResult.setTextColor(ContextCompat.getColor(this, R.color.peso_bajo))
             }
             in 18.51..24.99 -> {
                 tvResult.text = "Normal"
                 tvDescription.text = "Peso adecuado para la altura"
+                tvResult.setTextColor(ContextCompat.getColor(this, R.color.peso_normal))
             }
             in 25.00..29.99 -> {
                 tvResult.text = "Sobrepeso"
                 tvDescription.text = "Demasido peso para la estatura"
+                tvResult.setTextColor(ContextCompat.getColor(this, R.color.sobrepeso))
             }
             in 30.00..99.00 -> {
                 tvResult.text = "Obesidad"
                 tvDescription.text = "MUY por encima del peso recomendado"
+                tvResult.setTextColor(ContextCompat.getColor(this, R.color.obesidad))
             }
             else->{
                 tvImc.text = "error"
@@ -66,5 +78,6 @@ class ResultImcActivity : AppCompatActivity() {
         tvImc = findViewById(R.id.tvImc)
         tvResult = findViewById(R.id.tvResult)
         tvDescription = findViewById(R.id.tvDescription)
+        btnReCalculate = findViewById(R.id.btnReCalculate)
     }
 }
