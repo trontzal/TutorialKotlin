@@ -28,7 +28,7 @@ class ResultImcActivity : AppCompatActivity() {
             insets
         }
         val resultString: String? = intent.extras?.getString("IMC_RESULT")
-        val result: Double = resultString?.toDoubleOrNull() ?: -1.0
+        val result: Double = resultString?.replace(",", ".")?.toDouble() ?: -1.0
 
 
 
